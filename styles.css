@@ -5,6 +5,7 @@
 }
 
 body {
+  background-color: #ddd;
   font-family: "Inter", sans-serif;
   height: 100%;
 }
@@ -24,6 +25,21 @@ body {
   color: #ddd;
   text-align: center;
   padding: 16px 0;
+}
+
+.main-section {
+  display: flex;
+  gap: 48px;
+}
+
+.custom-color-picker {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background-color: #222;
+  border-radius: 50%;
+  border: 3px solid #bbb;
+  cursor: pointer;
 }
 
 .grid-container {
