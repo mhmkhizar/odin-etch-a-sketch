@@ -1,11 +1,18 @@
 const gridContainer = document.querySelector(".grid-container");
-const gridSquares = generateGridSquares(16);
+const colorInput = document.querySelector("#color-picker");
+const customColorPicker = document.querySelector(".custom-color-picker");
 
+const gridSquares = generateGridSquares(16);
 gridContainer.append(...gridSquares);
+
+colorInput.addEventListener("input", (e) => {
+  customColorPicker.style.backgroundColor = e.target.value;
+});
 
 gridContainer.addEventListener("mouseover", (e) => {
   if (e.target.classList.contains("square")) {
-    e.target.classList.add("color");
+    e.target.style.backgroundColor = colorInput.value;
+    e.target.style.boxShadow = `0 0 0 0.05px ${colorInput.value}`;
   }
 });
 
