@@ -29,7 +29,7 @@ body {
 
 .main-section {
   display: flex;
-  gap: 48px;
+  gap: 96px;
 }
 
 .custom-color-picker {
@@ -38,7 +38,7 @@ body {
   height: 100px;
   background-color: #222;
   border-radius: 50%;
-  border: 3px solid #bbb;
+  box-shadow: 0 0 10px gray;
   cursor: pointer;
 }
 
