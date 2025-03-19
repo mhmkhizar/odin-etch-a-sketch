@@ -32,6 +32,13 @@ body {
   gap: 96px;
 }
 
+.selections {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
 .custom-color-picker {
   display: inline-block;
   width: 100px;
@@ -40,6 +47,20 @@ body {
   border-radius: 50%;
   box-shadow: 0 0 10px gray;
   cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* background-color: rebeccapurple; */
+}
+
+.button {
+  background-color: #ddd;
+  border: 1px solid #222;
+  padding: 8px 16px;
+  border-radius: 4px;
 }
 
 .grid-container {
@@ -52,13 +73,15 @@ body {
 }
 
 .square {
-  box-shadow: 0 0 0 0.05px #222;
+  background-color: #eee;
+  box-shadow: 0 0 0 0.1px #222;
 }
 
 .main-footer a {
   color: #ddd;
 }
 
-.color {
-  background-color: #222;
+.selected {
+  background-color: #333;
+  color: #ddd;
 }
