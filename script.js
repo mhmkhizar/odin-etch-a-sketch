@@ -3,14 +3,13 @@ const colorInput = document.querySelector("#colorPicker");
 const customColorPicker = document.querySelector(".custom-color-picker");
 const buttons = document.querySelector(".buttons");
 let selection = document.querySelector("#colorMode");
+let userSelectedColor = colorInput.value;
 
 const gridSquares = generateGridSquares(16);
 gridContainer.append(...gridSquares);
 
-let userSelectedColor = colorInput.value;
-
 colorInput.addEventListener("input", (e) => {
-  customColorPicker.style.backgroundColor = colorInput.value;
+  customColorPicker.style.backgroundColor = e.target.value;
   userSelectedColor = e.target.value;
 });
 
@@ -20,7 +19,15 @@ buttons.addEventListener("click", (e) => {
     const currentSelection = e.target;
 
     if (currentSelection.id === "Clear") {
-      gridSquares.forEach((square) => (square.style.backgroundColor = "#eee"));
+      e.target.classList.add("click");
+      e.target.addEventListener("transitionend", (e) => {
+        e.target.classList.remove("click");
+      });
+      gridSquares.forEach((square) => {
+        square.style.backgroundColor = "#eee";
+        square.style.boxShadow = `0 0 0 0.1px #222`;
+        square.style.opacity = 1;
+      });
     } else {
       previousSelection.classList.remove("selected");
       currentSelection.classList.add("selected");
@@ -34,6 +41,7 @@ gridContainer.addEventListener("mouseover", (e) => {
     switch (selection.id) {
       case "colorMode":
         e.target.style.backgroundColor = userSelectedColor;
+        console.log(userSelectedColor);
         e.target.style.boxShadow = `0 0 0 0.1px ${userSelectedColor}`;
         break;
       case "rainbowMode":
@@ -41,14 +49,19 @@ gridContainer.addEventListener("mouseover", (e) => {
         e.target.style.boxShadow = `0 0 0 0.1px ${getRandomColor()}`;
         break;
       case "Eraser":
-        e.target.style.backgroundColor = "#eee";
-        e.target.style.boxShadow = "0 0 0 0.1px #222";
+        resetSquareStyles(e);
         break;
       default:
         break;
     }
   }
 });
+
+function resetSquareStyles(e) {
+  e.target.style.backgroundColor = "#eee";
+  e.target.style.boxShadow = `0 0 0 0.1px #222`;
+  e.target.style.opacity = 1;
+}
 
 function getRandomColor() {
   const r = Math.floor(Math.random() * 256);
