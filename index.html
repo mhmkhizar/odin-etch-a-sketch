@@ -21,14 +21,29 @@
       <main class="main">
         <section class="main-section">
           <div class="selections">
-            <input
-              type="color"
-              id="color-picker"
-              name="color"
-              value="#222222"
-              hidden
-            />
-            <label for="color-picker" class="custom-color-picker"></label>
+            <div class="color-picker">
+              <input
+                type="color"
+                id="colorPicker"
+                name="color"
+                value="#222222"
+                hidden
+              />
+              <label for="colorPicker" class="custom-color-picker"></label>
+            </div>
+            <div class="buttons">
+              <button type="button" class="button selected" id="colorMode">
+                Color Mode
+              </button>
+              <button type="button" class="button" id="rainbowMode">
+                Rainbow Mode
+              </button>
+              <button type="button" class="button" id="darkeningMode">
+                Darkening Mode
+              </button>
+              <button type="button" class="button" id="Eraser">Eraser</button>
+              <button type="button" class="button" id="Clear">Clear</button>
+            </div>
           </div>
           <div class="grid-container"></div>
         </section>
