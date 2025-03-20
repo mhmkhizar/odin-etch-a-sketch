@@ -41,9 +41,9 @@ body {
 
 .custom-color-picker {
   display: inline-block;
-  width: 75px;
-  height: 75px;
-  background-color: #222;
+  width: 70px;
+  height: 70px;
+  background-color: #ec5228;
   border-radius: 50%;
   box-shadow: 0 0 10px gray;
   cursor: pointer;
