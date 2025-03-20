@@ -58,11 +58,11 @@ gridContainer.addEventListener("mouseover", (e) => {
   switch (currentSelection.id) {
     case "colorMode":
       square.style.backgroundColor = currentColor;
-      square.style.boxShadow = `0 0 0 0.1px ${currentColor}`;
+      square.style.boxShadow = "none";
       break;
     case "rainbowMode":
       square.style.backgroundColor = getRandomColor();
-      square.style.boxShadow = `0 0 0 0.1px ${getRandomColor()}`;
+      square.style.boxShadow = "none";
       break;
     case "Eraser":
       resetSquare(square);
