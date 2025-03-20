@@ -57,16 +57,13 @@ gridContainer.addEventListener("mouseover", (e) => {
 
   switch (currentSelection.id) {
     case "colorMode":
-      square.style.backgroundColor = currentColor;
-      square.style.boxShadow = "none";
+      setSquareColor(square, currentColor);
       break;
     case "rainbowMode":
-      square.style.backgroundColor = getRandomColor();
-      square.style.boxShadow = "none";
+      setSquareColor(square, getRandomColor());
       break;
     case "darkeningMode":
-      square.style.backgroundColor = "#000";
-      square.style.boxShadow = "none";
+      setSquareColor(square, "#000");
       const opacity = parseFloat(square.style.opacity || "0");
       if (opacity < 1) {
         square.style.opacity = (opacity + 0.1).toString();
@@ -79,6 +76,11 @@ gridContainer.addEventListener("mouseover", (e) => {
       break;
   }
 });
+
+function setSquareColor(square, color) {
+  square.style.backgroundColor = color;
+  square.style.boxShadow = "none";
+}
 
 function resetSquare(element) {
   const square = element.target ? element.target : element;
