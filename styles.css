@@ -41,8 +41,8 @@ body {
 
 .custom-color-picker {
   display: inline-block;
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   background-color: #222;
   border-radius: 50%;
   box-shadow: 0 0 10px gray;
