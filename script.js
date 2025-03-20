@@ -1,66 +1,83 @@
 const gridContainer = document.querySelector(".grid-container");
 const colorInput = document.querySelector("#colorPicker");
 const customColorPicker = document.querySelector(".custom-color-picker");
-const buttons = document.querySelector(".buttons");
-let selection = document.querySelector("#colorMode");
-let userSelectedColor = colorInput.value;
+const selectionButtons = document.querySelector(".buttons");
+const sizeSpans = document.querySelectorAll(".range-container .count");
+const rangeInput = document.querySelector("#gridSize");
 
-const gridSquares = generateGridSquares(16);
-gridContainer.append(...gridSquares);
+let currentColor = colorInput.value;
+let currentSelection = document.querySelector("#colorMode");
+let currentSize = rangeInput.value;
+
+const defaultGrid = generateGrid(currentSize);
+gridContainer.append(...defaultGrid);
+let updatedGrid;
 
 colorInput.addEventListener("input", (e) => {
-  customColorPicker.style.backgroundColor = e.target.value;
-  userSelectedColor = e.target.value;
+  const selectedValue = e.target.value;
+  customColorPicker.style.backgroundColor = selectedValue;
+  currentColor = selectedValue;
 });
 
-buttons.addEventListener("click", (e) => {
-  if (e.target.tagName === "BUTTON") {
-    const previousSelection = document.querySelector(".selected");
-    const currentSelection = e.target;
+selectionButtons.addEventListener("click", (e) => {
+  const selectedButton = e.target;
+  if (selectedButton.tagName !== "BUTTON") return;
 
-    if (currentSelection.id === "Clear") {
-      e.target.classList.add("click");
-      e.target.addEventListener("transitionend", (e) => {
-        e.target.classList.remove("click");
-      });
-      gridSquares.forEach((square) => {
-        square.style.backgroundColor = "#eee";
-        square.style.boxShadow = `0 0 0 0.1px #222`;
-        square.style.opacity = 1;
-      });
-    } else {
-      previousSelection.classList.remove("selected");
-      currentSelection.classList.add("selected");
-      selection = currentSelection;
-    }
+  if (selectedButton.id === "Clear") {
+    selectedButton.classList.add("click");
+    selectedButton.addEventListener("transitionend", (e) => {
+      e.target.classList.remove("click");
+    });
+
+    (updatedGrid || defaultGrid).forEach((square) => resetSquare(square));
+    return;
   }
+
+  if (currentSelection.classList.contains("selected")) {
+    currentSelection.classList.remove("selected");
+  }
+
+  selectedButton.classList.add("selected");
+  currentSelection = selectedButton;
+});
+
+rangeInput.addEventListener("input", (e) => {
+  const selectedValue = e.target.value;
+  sizeSpans.forEach((span) => (span.textContent = selectedValue));
+
+  currentSize = selectedValue;
+  updatedGrid = generateGrid(selectedValue);
+  gridContainer.replaceChildren(...updatedGrid);
 });
 
 gridContainer.addEventListener("mouseover", (e) => {
-  if (e.target.classList.contains("square")) {
-    switch (selection.id) {
-      case "colorMode":
-        e.target.style.backgroundColor = userSelectedColor;
-        console.log(userSelectedColor);
-        e.target.style.boxShadow = `0 0 0 0.1px ${userSelectedColor}`;
-        break;
-      case "rainbowMode":
-        e.target.style.backgroundColor = getRandomColor();
-        e.target.style.boxShadow = `0 0 0 0.1px ${getRandomColor()}`;
-        break;
-      case "Eraser":
-        resetSquareStyles(e);
-        break;
-      default:
-        break;
-    }
+  if (!e.target.classList.contains("square")) return;
+
+  const square = e.target;
+
+  switch (currentSelection.id) {
+    case "colorMode":
+      square.style.backgroundColor = currentColor;
+      square.style.boxShadow = `0 0 0 0.1px ${currentColor}`;
+      break;
+    case "rainbowMode":
+      square.style.backgroundColor = getRandomColor();
+      square.style.boxShadow = `0 0 0 0.1px ${getRandomColor()}`;
+      break;
+    case "Eraser":
+      resetSquare(square);
+      break;
+    default:
+      break;
   }
 });
 
-function resetSquareStyles(e) {
-  e.target.style.backgroundColor = "#eee";
-  e.target.style.boxShadow = `0 0 0 0.1px #222`;
-  e.target.style.opacity = 1;
+function resetSquare(element) {
+  const square = element.target ? element.target : element;
+
+  square.style.backgroundColor = "#eee";
+  square.style.boxShadow = `0 0 0 0.1px #222`;
+  square.style.opacity = 1;
 }
 
 function getRandomColor() {
@@ -71,18 +88,18 @@ function getRandomColor() {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
-function generateGridSquares(size) {
-  const squaresQuantity = size * size;
-  const squareSize = 400 / size;
-  const squares = [];
+function generateGrid(gridSize) {
+  const totalSquares = gridSize * gridSize;
+  const squareDimension = 400 / gridSize;
+  const gridSquares = [];
 
-  for (let i = 0; i < squaresQuantity; i++) {
-    const square = document.createElement("div");
-    square.classList.add("square");
-    square.style.width = `${squareSize}px`;
-    square.style.height = `${squareSize}px`;
-    squares.push(square);
+  for (let i = 0; i < totalSquares; i++) {
+    const squareElement = document.createElement("div");
+    squareElement.classList.add("square");
+    squareElement.style.width = `${squareDimension}px`;
+    squareElement.style.height = `${squareDimension}px`;
+    gridSquares.push(squareElement);
   }
 
-  return squares;
+  return gridSquares;
 }
