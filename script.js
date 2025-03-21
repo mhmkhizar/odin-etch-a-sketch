@@ -81,6 +81,7 @@ function setSquareColor(square, color, mode) {
   } else if (mode === "darkeningMode") {
     square.style.backgroundColor = "#000";
     square.style.boxShadow = "none";
+
     const opacity = parseFloat(square.style.opacity || "0");
     if (opacity < 1) {
       square.style.opacity = (opacity + 0.1).toString();
