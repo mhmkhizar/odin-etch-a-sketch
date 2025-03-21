@@ -80,6 +80,7 @@ gridContainer.addEventListener("mouseover", (e) => {
 function setSquareColor(square, color) {
   square.style.backgroundColor = color;
   square.style.boxShadow = "none";
+  square.style.opacity = "";
 }
 
 function resetSquare(element) {
