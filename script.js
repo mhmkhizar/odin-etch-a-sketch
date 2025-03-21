@@ -57,17 +57,13 @@ gridContainer.addEventListener("mouseover", (e) => {
 
   switch (currentSelection.id) {
     case "colorMode":
-      setSquareColor(square, currentColor);
+      setSquareColor(square, currentColor, "colorMode");
       break;
     case "rainbowMode":
-      setSquareColor(square, getRandomColor());
+      setSquareColor(square, getRandomColor(), "rainbowMode");
       break;
     case "darkeningMode":
-      setSquareColor(square, "#000");
-      const opacity = parseFloat(square.style.opacity || "0");
-      if (opacity < 1) {
-        square.style.opacity = (opacity + 0.1).toString();
-      }
+      setSquareColor(square, "#000", "darkeningMode");
       break;
     case "Eraser":
       resetSquare(square);
@@ -77,9 +73,19 @@ gridContainer.addEventListener("mouseover", (e) => {
   }
 });
 
-function setSquareColor(square, color) {
-  square.style.backgroundColor = color;
-  square.style.boxShadow = "none";
+function setSquareColor(square, color, mode) {
+  if (mode === "colorMode" || mode === "rainbowMode") {
+    square.style.backgroundColor = color;
+    square.style.boxShadow = "none";
+    square.style.opacity = "";
+  } else if (mode === "darkeningMode") {
+    square.style.backgroundColor = "#000";
+    square.style.boxShadow = "none";
+    const opacity = parseFloat(square.style.opacity || "0");
+    if (opacity < 1) {
+      square.style.opacity = (opacity + 0.1).toString();
+    }
+  }
 }
 
 function resetSquare(element) {
